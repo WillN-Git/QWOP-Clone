@@ -14,11 +14,22 @@ public class PlayerMovement : MonoBehaviour
     public JointMotor2D rightCalfMotorRef;
     public JointMotor2D leftCalfMotorRef;
 
-    public float hingeSpeed = 40.0f;
+    [Header("Gameplay")]
+    public float scaleFactor = 0.8f;
+    public float jointSpeed = 40.0f;
+
+    public GameObject touchQ;
+    public GameObject touchW;
+    public GameObject touchO;
+    public GameObject touchP;
+
+    private ScoreController _scoreController;
 
     // Start is called before the first frame update
     void Start()
     {
+        _scoreController = FindFirstObjectByType<ScoreController>();
+
         rightCalfMotorRef = rightCalf.motor;
         leftCalfMotorRef = leftCalf.motor;
         rightThighMotorRef = rightThigh.motor;
@@ -33,22 +44,24 @@ public class PlayerMovement : MonoBehaviour
             rightThigh.useMotor = true;
             leftThigh.useMotor = true;
 
-            rightThighMotorRef.motorSpeed = -hingeSpeed;
-            leftThighMotorRef.motorSpeed = hingeSpeed;
+            rightThighMotorRef.motorSpeed = -jointSpeed;
+            leftThighMotorRef.motorSpeed = jointSpeed;
 
             rightThigh.motor = rightThighMotorRef;
             leftThigh.motor = leftThighMotorRef;
+
         }
         else if (Input.GetKey(KeyCode.W))
         {
             rightThigh.useMotor = true;
             leftThigh.useMotor = true;
 
-            rightThighMotorRef.motorSpeed = hingeSpeed;
-            leftThighMotorRef.motorSpeed = -hingeSpeed;
+            rightThighMotorRef.motorSpeed = jointSpeed;
+            leftThighMotorRef.motorSpeed = -jointSpeed;
 
             rightThigh.motor = rightThighMotorRef;
             leftThigh.motor = leftThighMotorRef;
+
         }
         else
         {
@@ -61,27 +74,54 @@ public class PlayerMovement : MonoBehaviour
             rightCalf.useMotor = true;
             leftCalf.useMotor = true;
 
-            rightCalfMotorRef.motorSpeed = -hingeSpeed;
-            leftCalfMotorRef.motorSpeed = hingeSpeed;
+            rightCalfMotorRef.motorSpeed = -jointSpeed;
+            leftCalfMotorRef.motorSpeed = jointSpeed;
 
             rightCalf.motor = rightCalfMotorRef;
             leftCalf.motor = leftCalfMotorRef;
+
         }
         else if (Input.GetKey(KeyCode.P))
         {
             rightCalf.useMotor = true;
             leftCalf.useMotor = true;
 
-            rightCalfMotorRef.motorSpeed = hingeSpeed;
-            leftCalfMotorRef.motorSpeed = -hingeSpeed;
+            rightCalfMotorRef.motorSpeed = jointSpeed;
+            leftCalfMotorRef.motorSpeed = -jointSpeed;
 
             rightCalf.motor = rightCalfMotorRef;
             leftCalf.motor = leftCalfMotorRef;
+
         }
         else
         {
             rightCalf.useMotor = false;
             leftCalf.useMotor = false;
+        }
+
+        // _scoreController.AddScore();
+
+        touchQ.transform.localScale = new Vector3(1f, 1f, 1f);
+        touchW.transform.localScale = new Vector3(1f, 1f, 1f);
+        touchO.transform.localScale = new Vector3(1f, 1f, 1f);
+        touchP.transform.localScale = new Vector3(1f, 1f, 1f);
+
+        if (Input.GetKey(KeyCode.Q))
+        {
+            touchQ.transform.localScale = new Vector3(scaleFactor, scaleFactor);
+
+        }
+        if (Input.GetKey(KeyCode.W))
+        {
+            touchW.transform.localScale = new Vector3(scaleFactor, scaleFactor);
+        }
+        if (Input.GetKey(KeyCode.O))
+        {
+            touchO.transform.localScale = new Vector3(scaleFactor, scaleFactor);
+        }
+        if (Input.GetKey(KeyCode.P))
+        {
+            touchP.transform.localScale = new Vector3(scaleFactor, scaleFactor);
         }
     }
 }
