@@ -10,7 +10,6 @@ public class Scroller : MonoBehaviour
 
     public GameObject cam;
     public float scrollerEffect;
-
     private void Start()
     {
         _startpos = transform.position.x;
@@ -20,18 +19,11 @@ public class Scroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    }
-
-    void FixedUpdate()
-    {
-        Debug.Log("HEY");
-
-        float temp = (cam.transform.position.x * (1 - scrollerEffect));
-        float dist = (cam.transform.position.x * scrollerEffect);
-
-        transform.position = new Vector3(_startpos + dist, transform.position.y, transform.position.z);
-
-        if (temp > _startpos + _length) _startpos += _length;
-        else if (temp < _startpos - _length) _startpos -= _length;
+        if (cam.transform.position.x > transform.position.x)
+        {
+            var pos = cam.transform.position + new Vector3(_length / 2 , 0, 0);
+            pos.z = 0;
+            transform.position= pos;
+        }
     }
 }
