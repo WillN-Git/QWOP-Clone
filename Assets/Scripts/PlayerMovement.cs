@@ -8,11 +8,23 @@ public class PlayerMovement : MonoBehaviour
     public HingeJoint2D leftThigh;
     public HingeJoint2D rightCalf;
     public HingeJoint2D leftCalf;
+    
+    public HingeJoint2D rightShoulder;
+    public HingeJoint2D leftShoulder;
+    public HingeJoint2D rightElbow;
+    public HingeJoint2D leftElbow;
 
     public JointMotor2D rightThighMotorRef;
     public JointMotor2D leftThighMotorRef;
     public JointMotor2D rightCalfMotorRef;
     public JointMotor2D leftCalfMotorRef;
+    
+    public JointMotor2D rightShoulderMotorRef;
+    public JointMotor2D leftShoulderMotorRef;
+    public JointMotor2D rightElbowMotorRef;
+    public JointMotor2D leftElbowMotorRef;
+
+    
 
     [Header("Gameplay")]
     public float scaleFactor = 0.8f;
@@ -30,10 +42,15 @@ public class PlayerMovement : MonoBehaviour
     {
         _scoreController = FindFirstObjectByType<ScoreController>();
 
-        rightCalfMotorRef = rightCalf.motor;
-        leftCalfMotorRef = leftCalf.motor;
         rightThighMotorRef = rightThigh.motor;
         leftThighMotorRef = leftThigh.motor;
+        rightCalfMotorRef = rightCalf.motor;
+        leftCalfMotorRef = leftCalf.motor;
+        
+        rightShoulderMotorRef = rightShoulder.motor;
+        leftShoulderMotorRef = leftShoulder.motor;
+        rightElbowMotorRef = rightElbow.motor;
+        leftElbowMotorRef = leftElbow.motor;
     }
 
     // Update is called once per frame
@@ -50,6 +67,12 @@ public class PlayerMovement : MonoBehaviour
             rightThigh.motor = rightThighMotorRef;
             leftThigh.motor = leftThighMotorRef;
 
+            rightShoulder.useMotor = true;
+            leftShoulder.useMotor = true;
+            
+            rightThighMotorRef.motorSpeed = -jointSpeed;
+            leftThighMotorRef.motorSpeed = jointSpeed;
+            
         }
         else if (Input.GetKey(KeyCode.W))
         {
@@ -62,11 +85,23 @@ public class PlayerMovement : MonoBehaviour
             rightThigh.motor = rightThighMotorRef;
             leftThigh.motor = leftThighMotorRef;
 
+            rightShoulder.useMotor = true;
+            leftShoulder.useMotor = true;
+            
+            rightShoulderMotorRef.motorSpeed = jointSpeed;
+            leftShoulderMotorRef.motorSpeed = -jointSpeed;
+
+            rightShoulder.motor = rightShoulderMotorRef;
+            leftShoulder.motor = leftShoulderMotorRef;
+            
         }
         else
         {
             rightThigh.useMotor = false;
             leftThigh.useMotor = false;
+
+            rightShoulder.useMotor = false;
+            leftShoulder.useMotor = false;
         }
 
         if (Input.GetKey(KeyCode.O))
@@ -80,6 +115,15 @@ public class PlayerMovement : MonoBehaviour
             rightCalf.motor = rightCalfMotorRef;
             leftCalf.motor = leftCalfMotorRef;
 
+            
+            rightElbow.useMotor = true;
+            leftElbow.useMotor = true;
+
+            rightElbowMotorRef.motorSpeed = -jointSpeed;
+            leftElbowMotorRef.motorSpeed = jointSpeed;
+
+            rightElbow.motor = rightElbowMotorRef;
+            leftElbow.motor = leftElbowMotorRef;
         }
         else if (Input.GetKey(KeyCode.P))
         {
@@ -92,11 +136,22 @@ public class PlayerMovement : MonoBehaviour
             rightCalf.motor = rightCalfMotorRef;
             leftCalf.motor = leftCalfMotorRef;
 
+            rightElbow.useMotor = true;
+            leftElbow.useMotor = true;
+
+            rightElbowMotorRef.motorSpeed = jointSpeed;
+            leftElbowMotorRef.motorSpeed = -jointSpeed;
+
+            rightElbow.motor = rightElbowMotorRef;
+            leftElbow.motor = leftElbowMotorRef;
         }
         else
         {
             rightCalf.useMotor = false;
             leftCalf.useMotor = false;
+            
+            rightElbow.useMotor = false;
+            leftElbow.useMotor = false;
         }
 
         // _scoreController.AddScore();
