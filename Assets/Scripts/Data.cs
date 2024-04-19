@@ -1,33 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class Data
 {
     public float startDist;
+    public int alive = 1;
 
-    // The whole player
-    public float speed;
-    public float inclination;
+    // Body parts
+    public float headAngle;
+    public float headPositionX;
+    public float headPositionY;
+    public float headVelocityX;
+    public float headVelocityY;
 
-    // Joint 
+    public float torsoSpeed;
+    public float torsoAngle;
+
+    // Joints
     public float rightThighSpeed;
     public float leftThighSpeed;
     public float rightCalfSpeed;
     public float leftCalfSpeed;
+    public float elbowSpeed;
 
     public float rightThighAngle;
     public float leftThighAngle;
     public float rightCalfAngle;
     public float leftCalfAngle;
-
-    public int alive = 1;
+    public float elbowAngle;
 
     public Data()
     {
         startDist = 0;
-        speed = 0;
-        inclination = 0;
+        torsoSpeed = 0;
+        torsoAngle = 0;
         rightThighSpeed = 0;
         leftThighSpeed = 0;
         rightCalfSpeed = 0;
@@ -41,8 +44,8 @@ public class Data
     public void GenerateNewDataCO()
     {
         startDist++;
-        speed++;
-        inclination++;
+        torsoSpeed++;
+        torsoAngle++;
         rightThighSpeed++;
         leftThighSpeed++;
         rightCalfSpeed++;

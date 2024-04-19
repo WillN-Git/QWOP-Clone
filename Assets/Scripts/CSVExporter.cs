@@ -43,7 +43,7 @@ public class CSVExporter : MonoBehaviour
     public void Record()
     {
         decimal time = Decimal.Round((decimal)Time.time, 2);
-        sb.AppendLine(data.startDist.ToString() + ";" +data.speed.ToString() + ";" +data.inclination.ToString() + ";" +data.rightThighSpeed.ToString() + ";" +data.leftThighSpeed.ToString() + ";" +data.rightCalfSpeed.ToString() + ";" +data.leftCalfSpeed.ToString() + ";" +data.rightThighAngle.ToString() + ";" +data.leftThighAngle.ToString() + ";" +data.rightCalfAngle.ToString() + ";" +data.leftCalfAngle.ToString() + ";" + data.alive.ToString() + ";" +time);
+        sb.AppendLine("");
         SaveToFile(sb.ToString());
     }
     public void SaveToFile(string content)
