@@ -12,8 +12,6 @@ public class CSVExporter : MonoBehaviour
 
     private StringBuilder sb = new StringBuilder();
 
-    private Data data = new Data();
-
     void Start()
     {
         AddHeaders();
@@ -27,7 +25,6 @@ public class CSVExporter : MonoBehaviour
 
     private IEnumerator RecordConstantlyCO()
     {
-        data.GenerateNewDataCO();
         Record();
 
         yield return new WaitForSeconds(recordDelaySeconds);
@@ -37,13 +34,50 @@ public class CSVExporter : MonoBehaviour
 
     public void AddHeaders()
     {
-        sb.AppendLine("startDist;speed;inclination;rightThighSpeed;leftThighSpeed;rightCalfSpeed;leftCalfSpeed;rightThighAngle;leftThighAngle;rightCalfAngle;leftCalfAngle;alive;time");
+        sb.AppendLine(
+            "rightThighSpeed;" + 
+            "leftThighSpeed;" +
+            "rightCalfSpeed;" +
+            "leftCalfSpeed;" +
+            "leftElbowSpeed;" +
+            "rightElbowSpeed;" +
+            "leftShoulderSpeed;" +
+            "rightShoulderSpeed;" +
+            "rightThighAngle;" +
+            "leftThighAngle;" +
+            "rightCalfAngle;" +
+            "leftCalfAngle;" +
+            "leftElbowAngle;" +
+            "rightElbowAngle;" +
+            "leftShoulderAngle;" +
+            "rightShoulderAngle;" +
+            "time"
+        );
     }
 
     public void Record()
     {
         decimal time = Decimal.Round((decimal)Time.time, 2);
-        sb.AppendLine("");
+        sb.AppendLine(
+            Data.rightThighSpeed.ToString() + ";" + 
+            Data.leftThighSpeed.ToString() + ";" + 
+            Data.rightCalfSpeed.ToString() + ";" + 
+            Data.leftCalfSpeed.ToString() + ";" + 
+            Data.leftElbowSpeed.ToString() + ";" + 
+            Data.rightElbowSpeed.ToString() + ";" + 
+            Data.leftShoulderSpeed.ToString() + ";" + 
+            Data.rightShoulderSpeed.ToString() + ";" + 
+            Data.rightThighAngle.ToString() + ";" + 
+            Data.leftThighAngle.ToString() + ";" + 
+            Data.rightCalfAngle.ToString() + ";" + 
+            Data.leftCalfAngle.ToString() + ";" + 
+            Data.leftElbowAngle.ToString() + ";" + 
+            Data.rightElbowAngle.ToString() + ";" + 
+            Data.leftShoulderAngle.ToString() + ";" + 
+            Data.rightShoulderAngle.ToString() + ";" + 
+            Data.alive
+        );
+
         SaveToFile(sb.ToString());
     }
     public void SaveToFile(string content)

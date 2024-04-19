@@ -1,30 +1,36 @@
 public class Data
 {
-    public float startDist;
-    public int alive = 1;
+    public static float startDist;
+    public static int alive = 1;
 
     // Body parts
-    public float headAngle;
-    public float headPositionX;
-    public float headPositionY;
-    public float headVelocityX;
-    public float headVelocityY;
+    public static float headAngle;
+    public static float headPositionX;
+    public static float headPositionY;
+    public static float headVelocityX;
+    public static float headVelocityY;
 
-    public float torsoSpeed;
-    public float torsoAngle;
+    public static float torsoSpeed;
+    public static float torsoAngle;
 
     // Joints
-    public float rightThighSpeed;
-    public float leftThighSpeed;
-    public float rightCalfSpeed;
-    public float leftCalfSpeed;
-    public float elbowSpeed;
+    public static float rightThighSpeed;
+    public static float leftThighSpeed;
+    public static float rightCalfSpeed;
+    public static float leftCalfSpeed;
+    public static float leftElbowSpeed;
+    public static float rightElbowSpeed;
+    public static float leftShoulderSpeed;
+    public static float rightShoulderSpeed;
 
-    public float rightThighAngle;
-    public float leftThighAngle;
-    public float rightCalfAngle;
-    public float leftCalfAngle;
-    public float elbowAngle;
+    public static float rightThighAngle;
+    public static float leftThighAngle;
+    public static float rightCalfAngle;
+    public static float leftCalfAngle;
+    public static float leftElbowAngle;
+    public static float rightElbowAngle;
+    public static float leftShoulderAngle;
+    public static float rightShoulderAngle;
 
     public Data()
     {
@@ -39,20 +45,5 @@ public class Data
         leftThighAngle = 0;
         rightCalfAngle = 0;
         leftCalfAngle = 0;
-    }
-
-    public void GenerateNewDataCO()
-    {
-        startDist++;
-        torsoSpeed++;
-        torsoAngle++;
-        rightThighSpeed++;
-        leftThighSpeed++;
-        rightCalfSpeed++;
-        leftCalfSpeed++;
-        rightThighAngle++;
-        leftThighAngle++;
-        rightCalfAngle++;
-        leftCalfAngle++;
     }
 }

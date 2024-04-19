@@ -37,9 +37,19 @@ public class PlayerMovement : MonoBehaviour
 
     private ScoreController _scoreController;
 
+    [Header("Debug")]
+    [SerializeField, Range(0, 1)]
+    private float inputReceiveRate = 0.5f;
+
+    private IInputActionSender runner;
+
+    private int[] input = new int[4];
+
     // Start is called before the first frame update
     void Start()
     {
+        runner = DummyRunner.instance;
+
         _scoreController = FindFirstObjectByType<ScoreController>();
 
         rightThighMotorRef = rightThigh.motor;
@@ -51,12 +61,15 @@ public class PlayerMovement : MonoBehaviour
         leftShoulderMotorRef = leftShoulder.motor;
         rightElbowMotorRef = rightElbow.motor;
         leftElbowMotorRef = leftElbow.motor;
+
+        _SendOutputData();
+        _ReceiveInputConstantly();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q) || input[0] == 1)
         {
             rightThigh.useMotor = true;
             leftThigh.useMotor = true;
@@ -74,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
             leftThighMotorRef.motorSpeed = jointSpeed;
             
         }
-        else if (Input.GetKey(KeyCode.W))
+        else if (Input.GetKey(KeyCode.W) || input[1] == 1)
         {
             rightThigh.useMotor = true;
             leftThigh.useMotor = true;
@@ -104,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
             leftShoulder.useMotor = false;
         }
 
-        if (Input.GetKey(KeyCode.O))
+        if (Input.GetKey(KeyCode.O) || input[2] == 1)
         {
             rightCalf.useMotor = true;
             leftCalf.useMotor = true;
@@ -125,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
             rightElbow.motor = rightElbowMotorRef;
             leftElbow.motor = leftElbowMotorRef;
         }
-        else if (Input.GetKey(KeyCode.P))
+        else if (Input.GetKey(KeyCode.P) || input[3] == 1)
         {
             rightCalf.useMotor = true;
             leftCalf.useMotor = true;
@@ -178,5 +191,49 @@ public class PlayerMovement : MonoBehaviour
         {
             touchP.transform.localScale = new Vector3(scaleFactor, scaleFactor);
         }
+    }
+
+    private void _SendOutputData()
+    {
+        StartCoroutine(_SendOutputDataCO());
+    }
+
+    private IEnumerator _SendOutputDataCO()
+    {
+        Data.rightThighSpeed = rightThigh.jointSpeed;
+        Data.leftThighSpeed = leftThigh.jointSpeed;
+        Data.rightCalfSpeed = rightCalf.jointSpeed;
+        Data.leftCalfSpeed = leftCalf.jointSpeed;
+        Data.rightElbowSpeed = rightElbow.jointSpeed;
+        Data.leftElbowSpeed = leftElbow.jointSpeed;
+        Data.rightShoulderSpeed = rightShoulder.jointSpeed;
+        Data.leftShoulderSpeed = leftShoulder.jointSpeed;
+
+        Data.rightThighAngle = rightThigh.jointAngle;
+        Data.leftThighAngle = leftThigh.jointAngle;
+        Data.rightCalfAngle = rightCalf.jointAngle;
+        Data.leftCalfAngle = leftCalf.jointAngle;
+        Data.rightElbowAngle = rightElbow.jointAngle;
+        Data.leftElbowAngle = leftElbow.jointAngle;
+        Data.rightShoulderAngle = rightShoulder.jointAngle;
+        Data.leftShoulderAngle = leftShoulder.jointAngle;
+
+        yield return new WaitForSeconds(inputReceiveRate);
+
+        yield return _SendOutputDataCO();
+    }
+
+    private void _ReceiveInputConstantly()
+    {
+        StartCoroutine(_ReceiveInputCO());
+    }
+
+    private IEnumerator _ReceiveInputCO()
+    {
+        input = runner.SendAction();
+
+        yield return new WaitForSeconds(inputReceiveRate);
+
+        yield return _ReceiveInputCO();
     }
 }
