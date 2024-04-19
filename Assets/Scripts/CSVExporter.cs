@@ -1,21 +1,37 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
 
 public class CSVExporter : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField, Range(0.1f, 1f)]
     private float recordDelaySeconds = 0.5f;
 
-    private StringBuilder sb = new StringBuilder();
+    private readonly StringBuilder sb = new();
 
-    void Start()
+    private readonly Data data = new();
+
+    private string file_tag = "";
+
+    private bool record = true;
+    
+    private void Start()
     {
+        // Get the current time
+        DateTime currentTime = DateTime.Now;
+
+        // Format the time as "_hour_minute_second"
+        file_tag = currentTime.ToString("ddd_MM_YYYY-HH_mm_ss");
+        
         AddHeaders();
-        recordConstantly();
+        recordConstantly();   
+    }
+
+    private void OnDestroy()
+    {
+        record = false;
     }
 
     public void recordConstantly()
@@ -80,16 +96,20 @@ public class CSVExporter : MonoBehaviour
 
         SaveToFile(sb.ToString());
     }
+
     public void SaveToFile(string content)
     {
         // The target file path e.g.
-        var folder = Application.streamingAssetsPath;
+        string folder = Application.streamingAssetsPath;
 
-        if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
+        if (!Directory.Exists(folder))
+        {
+            Directory.CreateDirectory(folder);
+        }
+        
+        string filePath = Path.Combine(folder, $"export_test_{file_tag}.csv");
 
-        var filePath = Path.Combine(folder, "export_test.csv");
-
-        using (var writer = new StreamWriter(filePath, false))
+        using (StreamWriter writer = new(filePath, false))
         {
             writer.Write(content);
         }

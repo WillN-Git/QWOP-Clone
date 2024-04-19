@@ -20,8 +20,8 @@ public class Data
     public static float leftCalfSpeed;
     public static float leftElbowSpeed;
     public static float rightElbowSpeed;
-    public static float leftShoulderSpeed;
     public static float rightShoulderSpeed;
+    public static float leftShoulderSpeed;
 
     public static float rightThighAngle;
     public static float leftThighAngle;
