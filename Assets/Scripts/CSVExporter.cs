@@ -67,7 +67,12 @@ public class CSVExporter : MonoBehaviour
             "rightElbowAngle;" +
             "leftShoulderAngle;" +
             "rightShoulderAngle;" +
-            "time"
+            "alive;" + 
+            "time;" + 
+            "a;" + 
+            "z;" + 
+            "o;" + 
+            "p"
         );
     }
 
@@ -91,7 +96,12 @@ public class CSVExporter : MonoBehaviour
             Data.rightElbowAngle.ToString() + ";" + 
             Data.leftShoulderAngle.ToString() + ";" + 
             Data.rightShoulderAngle.ToString() + ";" + 
-            Data.alive
+            Data.alive.ToString() + ";" + 
+            Time.time.ToString() + ";" + 
+            Data.a.ToString() + ";" + 
+            Data.z.ToString() + ";" + 
+            Data.o.ToString() + ";" + 
+            Data.p.ToString() + ";"
         );
 
         SaveToFile(sb.ToString());

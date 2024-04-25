@@ -218,9 +218,14 @@ public class PlayerMovement : MonoBehaviour
         Data.rightShoulderAngle = rightShoulder.jointAngle;
         Data.leftShoulderAngle = leftShoulder.jointAngle;
 
+        Data.a = input[0];
+        Data.z = input[1];
+        Data.o = input[2];
+        Data.p = input[3];
+
         yield return new WaitForSeconds(inputReceiveRate);
 
-        yield return _SendOutputDataCO();
+        StartCoroutine(_SendOutputDataCO());
     }
 
     private void _ReceiveInputConstantly()

@@ -32,6 +32,11 @@ public class Data
     public static float leftShoulderAngle;
     public static float rightShoulderAngle;
 
+    public static int a;
+    public static int z;
+    public static int o;
+    public static int p;
+
     public Data()
     {
         startDist = 0;
